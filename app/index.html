@@ -49,33 +49,83 @@
   </div>
 </div>
 
-<div ng-controller="MainCtrl" class="container" class="table-responsive">
+<div ng-controller="MainCtrl" class="container">
 
-  <button ng-click="insertStudent()" class="btn btn-info">Add Student</button><br><br>
+  <div ng-show="msg" class="alert alert-success" role="alert">
+     You successfully added a Student Details.
+  </div>
+
+  <button ng-click="bottonClicked()" class="btn btn-info">Add Student</button>
 
 
-  <button ng-click="getStudent()" class="btn btn-info">Show Students</button><br><br>
+  <div ng-show="btn">
+    <h3> Enter Student's Details</h3>
+    <form class="form-horizontal" name="insertForm">
+      <span> Name::</span> <input type="text" ng-model="abc"><br><br>
+      <span> Address::</span> <input type="text" ng-model="def"><br><br>
+      <span> Std::</span> <input type="text" ng-model="mayap"><br><br>
+      <button ng-click="insertStudent()" class="btn btn-success">Submit</button> &nbsp; <input type="reset"
+                                                                                               value="Reset"
+                                                                                               class="btn btn-info"> &nbsp;
+      <button ng-click="disbleAdd()" class="btn btn-danger">Cancel</button>
+    </form>
+  </div>
+<br>
+  <br>
+  <div>
 
+    <button ng-click="getStudent()" class="btn btn-info">Show Students</button>
+    <button ng-click="bottonClickedOne()" class="btn btn-info">Search By Id</button>
 
+   <div ng-show="btn11">
+      <input type="number" ng-model="studentId">
+      <button ng-click="searchOne()" class="btn btn-info">Search</button>
+    </div>
+    <div>
+    <br><br>
+    <h2>Student's List</h2>
 
-  <table class="table">
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Std</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-    <tr ng-repeat="abc in data">
-      <td>{{abc.id}}</td>
-      <td>{{abc.name}}</td>
-      <td>{{abc.address}}</td>
-      <td>{{abc.std}}</td>
-      <td>{{abc.status}}</td>
-      <td><button class="btn btn-success">Update</button> &nbsp; <button class="btn btn-danger">Delete</button></td>
-    </tr>
-  </table>
+    <table class="table table-striped">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Std</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr ng-repeat="abc in data">
+        <td width="10%"><span ng-hide="edit[{{$index}}]">{{abc.id}}</span>
+          <input ng-show="edit[{{$index}}]" readonly="readonly" type="text" value="{{abc.id}}" size="1"></td>
+
+        <td width="10%"><span ng-hide="edit[{{$index}}]">{{abc.name}}</span>
+          <input ng-show="edit[{{$index}}]" type="text"  value="{{abc.name}}" size="10"
+                 ng-model="abc.name"></td>
+
+        <td width="10%"><span ng-hide="edit[{{$index}}]">{{abc.address}}</span>
+          <input ng-show="edit[{{$index}}]" type="text"  value="{{abc.address}}" size="10"
+                 ng-model="abc.address"></td>
+
+        <td width="10%"><span ng-hide="edit[{{$index}}]">{{abc.std}}</span>
+          <input ng-show="edit[{{$index}}]" type="text"  value="{{abc.std}}" size="10"
+                 ng-model="abc.std"></td>
+
+        <td width="10%"><span ng-hide="edit[{{$index}}]">{{abc.status}}</span>
+          <input ng-show="edit[{{$index}}]" readonly="readonly" type="text" value="{{abc.status}}" size="10"></td>
+
+        <td width="200">
+          <button ng-hide="edit[{{$index}}]" class="btn btn-success" ng-click="triggerEditMode($index)">Edit</button>
+          &nbsp;
+          <button ng-hide="edit[{{$index}}]" class="btn btn-danger" ng-click="updateStatus(abc.id)">Delete</button>
+          <button ng-show="edit[{{$index}}]" class="btn btn-success" ng-click="saveEditedData($index,abc)">Save</button> &nbsp;
+          <button ng-show="edit[{{$index}}]" class="btn btn-danger" ng-click="removeEditMode($index)">Cancel</button>
+          &nbsp;
+        </td>
+      </tr>
+
+    </table>
+    </div>
+  </div>
 
 </div>
 
